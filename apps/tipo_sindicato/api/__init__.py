@@ -1,0 +1,1 @@
+"""TipoSindicato API package."""

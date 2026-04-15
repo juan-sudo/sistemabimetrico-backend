@@ -1,0 +1,1 @@
+"""TipoTrabajador API package."""

@@ -1,0 +1,1 @@
+"""Sucursal domain package."""

@@ -1,0 +1,1 @@
+"""DescansoMedico domain package."""

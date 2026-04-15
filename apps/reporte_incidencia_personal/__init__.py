@@ -1,0 +1,1 @@
+"""ReporteIncidenciaPersonal domain package."""

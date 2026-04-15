@@ -1,0 +1,1 @@
+"""Area domain package."""

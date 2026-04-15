@@ -1,0 +1,1 @@
+"""TipoTrabajador domain package."""

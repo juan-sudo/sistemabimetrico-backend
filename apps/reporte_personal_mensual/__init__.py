@@ -1,0 +1,1 @@
+"""ReportePersonalMensual domain package."""

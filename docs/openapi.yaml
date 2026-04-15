@@ -1,0 +1,7434 @@
+openapi: 3.0.3
+info:
+  title: Sistema Biometrico API
+  version: 1.0.0
+  description: Documentacion OpenAPI/Swagger del backend
+paths:
+  /api/:
+    get:
+      operationId: api_retrieve
+      summary: Raiz de la API
+      tags:
+      - Sistema
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiRootResponse'
+          description: ''
+  /api/areas/:
+    get:
+      operationId: api_areas_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+          description: ''
+    post:
+      operationId: api_areas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Area'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Area'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Area'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+          description: ''
+  /api/areas/{id}/:
+    get:
+      operationId: api_areas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este area.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+          description: ''
+    put:
+      operationId: api_areas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este area.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Area'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Area'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Area'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+          description: ''
+    patch:
+      operationId: api_areas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este area.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedArea'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+          description: ''
+    delete:
+      operationId: api_areas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este area.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/asistencias-diarias/:
+    get:
+      operationId: api_asistencias_diarias_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AsistenciaDiaria'
+          description: ''
+    post:
+      operationId: api_asistencias_diarias_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsistenciaDiaria'
+          description: ''
+  /api/asistencias-diarias/{id}/:
+    get:
+      operationId: api_asistencias_diarias_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsistenciaDiaria'
+          description: ''
+    put:
+      operationId: api_asistencias_diarias_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AsistenciaDiaria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsistenciaDiaria'
+          description: ''
+    patch:
+      operationId: api_asistencias_diarias_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAsistenciaDiaria'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsistenciaDiaria'
+          description: ''
+    delete:
+      operationId: api_asistencias_diarias_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/auth/login/:
+    post:
+      operationId: api_auth_login_create
+      summary: Iniciar sesion
+      tags:
+      - Autenticacion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Faltan credenciales
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Credenciales invalidas
+  /api/auth/me/:
+    get:
+      operationId: api_auth_me_retrieve
+      summary: Perfil del usuario autenticado
+      tags:
+      - Autenticacion
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: api_auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/verify/:
+    post:
+      operationId: api_auth_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /api/boletas-conceptos/:
+    get:
+      operationId: api_boletas_conceptos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoletaConcepto'
+          description: ''
+    post:
+      operationId: api_boletas_conceptos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaConcepto'
+          description: ''
+  /api/boletas-conceptos/{id}/:
+    get:
+      operationId: api_boletas_conceptos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta concepto.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaConcepto'
+          description: ''
+    put:
+      operationId: api_boletas_conceptos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta concepto.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BoletaConcepto'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaConcepto'
+          description: ''
+    patch:
+      operationId: api_boletas_conceptos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta concepto.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaConcepto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaConcepto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaConcepto'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaConcepto'
+          description: ''
+    delete:
+      operationId: api_boletas_conceptos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta concepto.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/boletas-mensuales/:
+    get:
+      operationId: api_boletas_mensuales_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+    post:
+      operationId: api_boletas_mensuales_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+  /api/boletas-mensuales/{id}/:
+    get:
+      operationId: api_boletas_mensuales_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta mensual.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+    put:
+      operationId: api_boletas_mensuales_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta mensual.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+    patch:
+      operationId: api_boletas_mensuales_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta mensual.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBoletaMensual'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+    delete:
+      operationId: api_boletas_mensuales_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este boleta mensual.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/boletas-mensuales/generar/:
+    post:
+      operationId: api_boletas_mensuales_generar_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BoletaMensual'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoletaMensual'
+          description: ''
+  /api/cargos/:
+    get:
+      operationId: api_cargos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cargo'
+          description: ''
+    post:
+      operationId: api_cargos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cargo'
+          description: ''
+  /api/cargos/{id}/:
+    get:
+      operationId: api_cargos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este cargo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cargo'
+          description: ''
+    put:
+      operationId: api_cargos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este cargo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cargo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cargo'
+          description: ''
+    patch:
+      operationId: api_cargos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este cargo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCargo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCargo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCargo'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cargo'
+          description: ''
+    delete:
+      operationId: api_cargos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este cargo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/categorias/:
+    get:
+      operationId: api_categorias_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+          description: ''
+    post:
+      operationId: api_categorias_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+  /api/categorias/{id}/:
+    get:
+      operationId: api_categorias_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    put:
+      operationId: api_categorias_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    patch:
+      operationId: api_categorias_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    delete:
+      operationId: api_categorias_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/descansos-medicos/:
+    get:
+      operationId: api_descansos_medicos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DescansoMedico'
+          description: ''
+    post:
+      operationId: api_descansos_medicos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescansoMedico'
+          description: ''
+  /api/descansos-medicos/{id}/:
+    get:
+      operationId: api_descansos_medicos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descanso medico.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescansoMedico'
+          description: ''
+    put:
+      operationId: api_descansos_medicos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descanso medico.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescansoMedico'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescansoMedico'
+          description: ''
+    patch:
+      operationId: api_descansos_medicos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descanso medico.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDescansoMedico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDescansoMedico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDescansoMedico'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescansoMedico'
+          description: ''
+    delete:
+      operationId: api_descansos_medicos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descanso medico.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/descargas-marcaciones/:
+    get:
+      operationId: api_descargas_marcaciones_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+    post:
+      operationId: api_descargas_marcaciones_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+  /api/descargas-marcaciones/{id}/:
+    get:
+      operationId: api_descargas_marcaciones_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descarga marcacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+    put:
+      operationId: api_descargas_marcaciones_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descarga marcacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+    patch:
+      operationId: api_descargas_marcaciones_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descarga marcacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+    delete:
+      operationId: api_descargas_marcaciones_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este descarga marcacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/descargas-marcaciones/descargar-dispositivo/:
+    post:
+      operationId: api_descargas_marcaciones_descargar_dispositivo_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+  /api/descargas-marcaciones/notificaciones-faltantes/:
+    get:
+      operationId: api_descargas_marcaciones_notificaciones_faltantes_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+  /api/descargas-marcaciones/ver-capacidad-dispositivo/:
+    post:
+      operationId: api_descargas_marcaciones_ver_capacidad_dispositivo_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+  /api/descargas-marcaciones/ver-raw-dispositivo/:
+    post:
+      operationId: api_descargas_marcaciones_ver_raw_dispositivo_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DescargaMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescargaMarcacion'
+          description: ''
+  /api/dispositivos/:
+    get:
+      operationId: api_dispositivos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dispositivo'
+          description: ''
+    post:
+      operationId: api_dispositivos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+          description: ''
+  /api/dispositivos/{id}/:
+    get:
+      operationId: api_dispositivos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este dispositivo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+          description: ''
+    put:
+      operationId: api_dispositivos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este dispositivo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+          description: ''
+    patch:
+      operationId: api_dispositivos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este dispositivo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDispositivo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDispositivo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDispositivo'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+          description: ''
+    delete:
+      operationId: api_dispositivos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este dispositivo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/dispositivos/probar-conexion/:
+    post:
+      operationId: api_dispositivos_probar_conexion_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Dispositivo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispositivo'
+          description: ''
+  /api/empresas/:
+    get:
+      operationId: api_empresas_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Empresa'
+          description: ''
+    post:
+      operationId: api_empresas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+  /api/empresas/{id}/:
+    get:
+      operationId: api_empresas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este empresa.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    put:
+      operationId: api_empresas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este empresa.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    patch:
+      operationId: api_empresas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este empresa.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    delete:
+      operationId: api_empresas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este empresa.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/health/:
+    get:
+      operationId: api_health_retrieve
+      summary: Health check
+      tags:
+      - Sistema
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+          description: ''
+  /api/justificaciones/:
+    get:
+      operationId: api_justificaciones_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Justificacion'
+          description: ''
+    post:
+      operationId: api_justificaciones_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justificacion'
+          description: ''
+  /api/justificaciones/{id}/:
+    get:
+      operationId: api_justificaciones_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este justificacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justificacion'
+          description: ''
+    put:
+      operationId: api_justificaciones_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este justificacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justificacion'
+          description: ''
+    patch:
+      operationId: api_justificaciones_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este justificacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJustificacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJustificacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJustificacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justificacion'
+          description: ''
+    delete:
+      operationId: api_justificaciones_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este justificacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/justificaciones/gestionar/:
+    post:
+      operationId: api_justificaciones_gestionar_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Justificacion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justificacion'
+          description: ''
+  /api/marcaciones/:
+    get:
+      operationId: api_marcaciones_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Marcacion'
+          description: ''
+    post:
+      operationId: api_marcaciones_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marcacion'
+          description: ''
+  /api/marcaciones/{id}/:
+    get:
+      operationId: api_marcaciones_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este marcacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marcacion'
+          description: ''
+    put:
+      operationId: api_marcaciones_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este marcacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Marcacion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marcacion'
+          description: ''
+    patch:
+      operationId: api_marcaciones_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este marcacion.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMarcacion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMarcacion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMarcacion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marcacion'
+          description: ''
+    delete:
+      operationId: api_marcaciones_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este marcacion.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/personal-turnos/:
+    get:
+      operationId: api_personal_turnos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalTurno'
+          description: ''
+    post:
+      operationId: api_personal_turnos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalTurno'
+          description: ''
+  /api/personal-turnos/{id}/:
+    get:
+      operationId: api_personal_turnos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal turno.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalTurno'
+          description: ''
+    put:
+      operationId: api_personal_turnos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal turno.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PersonalTurno'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalTurno'
+          description: ''
+    patch:
+      operationId: api_personal_turnos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal turno.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalTurno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalTurno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalTurno'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalTurno'
+          description: ''
+    delete:
+      operationId: api_personal_turnos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal turno.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/personales/:
+    get:
+      operationId: api_personales_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Personal'
+          description: ''
+    post:
+      operationId: api_personales_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Personal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Personal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+  /api/personales/{id}/:
+    get:
+      operationId: api_personales_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+    put:
+      operationId: api_personales_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Personal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Personal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+    patch:
+      operationId: api_personales_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonal'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+    delete:
+      operationId: api_personales_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/personales/{id}/reporte-general/:
+    get:
+      operationId: api_personales_reporte_general_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+  /api/personales/{id}/resumen-planilla/:
+    get:
+      operationId: api_personales_resumen_planilla_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personal'
+          description: ''
+  /api/reportes-asistencia-diaria/:
+    get:
+      operationId: api_reportes_asistencia_diaria_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          description: ''
+    post:
+      operationId: api_reportes_asistencia_diaria_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          description: ''
+  /api/reportes-asistencia-diaria/{id}/:
+    get:
+      operationId: api_reportes_asistencia_diaria_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          description: ''
+    put:
+      operationId: api_reportes_asistencia_diaria_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          description: ''
+    patch:
+      operationId: api_reportes_asistencia_diaria_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteAsistenciaDiaria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteAsistenciaDiaria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteAsistenciaDiaria'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteAsistenciaDiaria'
+          description: ''
+    delete:
+      operationId: api_reportes_asistencia_diaria_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte asistencia
+          diaria.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/reportes-conceptos/:
+    get:
+      operationId: api_reportes_conceptos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReporteConceptoPersonal'
+          description: ''
+    post:
+      operationId: api_reportes_conceptos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteConceptoPersonal'
+          description: ''
+  /api/reportes-conceptos/{id}/:
+    get:
+      operationId: api_reportes_conceptos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte concepto
+          personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteConceptoPersonal'
+          description: ''
+    put:
+      operationId: api_reportes_conceptos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte concepto
+          personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteConceptoPersonal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteConceptoPersonal'
+          description: ''
+    patch:
+      operationId: api_reportes_conceptos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte concepto
+          personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteConceptoPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteConceptoPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteConceptoPersonal'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteConceptoPersonal'
+          description: ''
+    delete:
+      operationId: api_reportes_conceptos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte concepto
+          personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/reportes-incidencias/:
+    get:
+      operationId: api_reportes_incidencias_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          description: ''
+    post:
+      operationId: api_reportes_incidencias_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          description: ''
+  /api/reportes-incidencias/{id}/:
+    get:
+      operationId: api_reportes_incidencias_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte incidencia
+          personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          description: ''
+    put:
+      operationId: api_reportes_incidencias_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte incidencia
+          personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          description: ''
+    patch:
+      operationId: api_reportes_incidencias_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte incidencia
+          personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteIncidenciaPersonal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteIncidenciaPersonal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReporteIncidenciaPersonal'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReporteIncidenciaPersonal'
+          description: ''
+    delete:
+      operationId: api_reportes_incidencias_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte incidencia
+          personal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/reportes-personal/:
+    get:
+      operationId: api_reportes_personal_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportePersonalMensual'
+          description: ''
+    post:
+      operationId: api_reportes_personal_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportePersonalMensual'
+          description: ''
+  /api/reportes-personal/{id}/:
+    get:
+      operationId: api_reportes_personal_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte personal
+          mensual.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportePersonalMensual'
+          description: ''
+    put:
+      operationId: api_reportes_personal_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte personal
+          mensual.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReportePersonalMensual'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportePersonalMensual'
+          description: ''
+    patch:
+      operationId: api_reportes_personal_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte personal
+          mensual.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReportePersonalMensual'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReportePersonalMensual'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReportePersonalMensual'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportePersonalMensual'
+          description: ''
+    delete:
+      operationId: api_reportes_personal_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este reporte personal
+          mensual.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/sucursales/:
+    get:
+      operationId: api_sucursales_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sucursal'
+          description: ''
+    post:
+      operationId: api_sucursales_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sucursal'
+          description: ''
+  /api/sucursales/{id}/:
+    get:
+      operationId: api_sucursales_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este sucursal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sucursal'
+          description: ''
+    put:
+      operationId: api_sucursales_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este sucursal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Sucursal'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sucursal'
+          description: ''
+    patch:
+      operationId: api_sucursales_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este sucursal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSucursal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSucursal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSucursal'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sucursal'
+          description: ''
+    delete:
+      operationId: api_sucursales_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este sucursal.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tipos-documento/:
+    get:
+      operationId: api_tipos_documento_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TipoDocumento'
+          description: ''
+    post:
+      operationId: api_tipos_documento_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoDocumento'
+          description: ''
+  /api/tipos-documento/{id}/:
+    get:
+      operationId: api_tipos_documento_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo documento.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoDocumento'
+          description: ''
+    put:
+      operationId: api_tipos_documento_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo documento.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoDocumento'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoDocumento'
+          description: ''
+    patch:
+      operationId: api_tipos_documento_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo documento.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoDocumento'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoDocumento'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoDocumento'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoDocumento'
+          description: ''
+    delete:
+      operationId: api_tipos_documento_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo documento.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tipos-sindicato/:
+    get:
+      operationId: api_tipos_sindicato_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TipoSindicato'
+          description: ''
+    post:
+      operationId: api_tipos_sindicato_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoSindicato'
+          description: ''
+  /api/tipos-sindicato/{id}/:
+    get:
+      operationId: api_tipos_sindicato_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo sindicato.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoSindicato'
+          description: ''
+    put:
+      operationId: api_tipos_sindicato_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo sindicato.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoSindicato'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoSindicato'
+          description: ''
+    patch:
+      operationId: api_tipos_sindicato_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo sindicato.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoSindicato'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoSindicato'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoSindicato'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoSindicato'
+          description: ''
+    delete:
+      operationId: api_tipos_sindicato_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo sindicato.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tipos-trabajador/:
+    get:
+      operationId: api_tipos_trabajador_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TipoTrabajador'
+          description: ''
+    post:
+      operationId: api_tipos_trabajador_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoTrabajador'
+          description: ''
+  /api/tipos-trabajador/{id}/:
+    get:
+      operationId: api_tipos_trabajador_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo trabajador.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoTrabajador'
+          description: ''
+    put:
+      operationId: api_tipos_trabajador_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo trabajador.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TipoTrabajador'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoTrabajador'
+          description: ''
+    patch:
+      operationId: api_tipos_trabajador_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo trabajador.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoTrabajador'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoTrabajador'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTipoTrabajador'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoTrabajador'
+          description: ''
+    delete:
+      operationId: api_tipos_trabajador_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este tipo trabajador.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/turno-bloques-horario/:
+    get:
+      operationId: api_turno_bloques_horario_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TurnoBloqueHorario'
+          description: ''
+    post:
+      operationId: api_turno_bloques_horario_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TurnoBloqueHorario'
+          description: ''
+  /api/turno-bloques-horario/{id}/:
+    get:
+      operationId: api_turno_bloques_horario_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno bloque horario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TurnoBloqueHorario'
+          description: ''
+    put:
+      operationId: api_turno_bloques_horario_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno bloque horario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TurnoBloqueHorario'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TurnoBloqueHorario'
+          description: ''
+    patch:
+      operationId: api_turno_bloques_horario_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno bloque horario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTurnoBloqueHorario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTurnoBloqueHorario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTurnoBloqueHorario'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TurnoBloqueHorario'
+          description: ''
+    delete:
+      operationId: api_turno_bloques_horario_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno bloque horario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/turnos/:
+    get:
+      operationId: api_turnos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Turno'
+          description: ''
+    post:
+      operationId: api_turnos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Turno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Turno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Turno'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turno'
+          description: ''
+  /api/turnos/{id}/:
+    get:
+      operationId: api_turnos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turno'
+          description: ''
+    put:
+      operationId: api_turnos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Turno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Turno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Turno'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turno'
+          description: ''
+    patch:
+      operationId: api_turnos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTurno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTurno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTurno'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turno'
+          description: ''
+    delete:
+      operationId: api_turnos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este turno.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ubicaciones-geograficas/:
+    get:
+      operationId: api_ubicaciones_geograficas_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UbicacionGeografica'
+          description: ''
+    post:
+      operationId: api_ubicaciones_geograficas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UbicacionGeografica'
+          description: ''
+  /api/ubicaciones-geograficas/{id}/:
+    get:
+      operationId: api_ubicaciones_geograficas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este ubicacion geografica.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UbicacionGeografica'
+          description: ''
+    put:
+      operationId: api_ubicaciones_geograficas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este ubicacion geografica.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UbicacionGeografica'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UbicacionGeografica'
+          description: ''
+    patch:
+      operationId: api_ubicaciones_geograficas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este ubicacion geografica.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUbicacionGeografica'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUbicacionGeografica'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUbicacionGeografica'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UbicacionGeografica'
+          description: ''
+    delete:
+      operationId: api_ubicaciones_geograficas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este ubicacion geografica.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/usuarios/:
+    get:
+      operationId: api_usuarios_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: api_usuarios_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/usuarios/{id}/:
+    get:
+      operationId: api_usuarios_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este usuario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: api_usuarios_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este usuario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_usuarios_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este usuario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: api_usuarios_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este usuario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    ApiRootResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        health:
+          type: string
+          format: uri
+        auth_login:
+          type: string
+          format: uri
+        asistencias_diarias:
+          type: string
+          format: uri
+        reportes_personal:
+          type: string
+          format: uri
+        reportes_asistencia_diaria:
+          type: string
+          format: uri
+        reportes_conceptos:
+          type: string
+          format: uri
+        reportes_incidencias:
+          type: string
+          format: uri
+      required:
+      - asistencias_diarias
+      - auth_login
+      - health
+      - name
+      - reportes_asistencia_diaria
+      - reportes_conceptos
+      - reportes_incidencias
+      - reportes_personal
+      - version
+    Area:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 150
+        tipo:
+          $ref: '#/components/schemas/AreaTipoEnum'
+        activo:
+          type: boolean
+        sucursal:
+          type: integer
+        parent:
+          type: integer
+          nullable: true
+      required:
+      - codigo
+      - created_at
+      - id
+      - nombre
+      - sucursal
+      - updated_at
+    AreaTipoEnum:
+      enum:
+      - GERENCIA
+      - OFICINA
+      - SUBGERENCIA
+      - UNIDAD
+      type: string
+      description: |-
+        * `GERENCIA` - Gerencia
+        * `OFICINA` - Oficina
+        * `SUBGERENCIA` - Subgerencia
+        * `UNIDAD` - Unidad
+    AsistenciaDiaria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        hora_entrada_programada_texto:
+          type: string
+          readOnly: true
+        hora_salida_programada_texto:
+          type: string
+          readOnly: true
+        hora_entrada_real_texto:
+          type: string
+          readOnly: true
+        hora_salida_real_texto:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha:
+          type: string
+          format: date
+        bloque_orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        estado_dia:
+          $ref: '#/components/schemas/EstadoDiaEnum'
+        hora_entrada_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_entrada_real:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_real:
+          type: string
+          format: time
+          nullable: true
+        minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+      required:
+      - area_nombre
+      - created_at
+      - empresa_nombre
+      - fecha
+      - hora_entrada_programada_texto
+      - hora_entrada_real_texto
+      - hora_salida_programada_texto
+      - hora_salida_real_texto
+      - id
+      - personal_codigo_empleado
+      - personal_id
+      - personal_nombres_completos
+      - personal_numero_documento
+      - reporte
+      - reporte_anio
+      - reporte_mes
+      - reporte_periodo
+      - sucursal_nombre
+      - updated_at
+    AuthError:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+      - detail
+    BoletaConcepto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/BoletaConceptoTipoEnum'
+        concepto:
+          type: string
+          maxLength: 120
+        monto:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        boleta:
+          type: integer
+      required:
+      - boleta
+      - concepto
+      - created_at
+      - id
+      - monto
+      - tipo
+      - updated_at
+    BoletaConceptoTipoEnum:
+      enum:
+      - INGRESO
+      - DESCUENTO
+      type: string
+      description: |-
+        * `INGRESO` - Ingreso
+        * `DESCUENTO` - Descuento
+    BoletaMensual:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anio:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mes:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        sueldo_base:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_ingresos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_descuentos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        neto_pagar:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        estado:
+          $ref: '#/components/schemas/BoletaMensualEstadoEnum'
+        archivo_pdf:
+          type: string
+          format: uri
+          nullable: true
+        personal:
+          type: integer
+      required:
+      - anio
+      - created_at
+      - id
+      - mes
+      - personal
+      - sueldo_base
+      - updated_at
+    BoletaMensualEstadoEnum:
+      enum:
+      - GENERADA
+      - DESCARGADA
+      - ANULADA
+      type: string
+      description: |-
+        * `GENERADA` - Generada
+        * `DESCARGADA` - Descargada
+        * `ANULADA` - Anulada
+    Cargo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 150
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - id
+      - updated_at
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        periodos_vacacionales:
+          type: boolean
+        dias_por_periodo:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - id
+      - updated_at
+    DescansoMedico:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        motivo:
+          $ref: '#/components/schemas/MotivoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        citt:
+          type: string
+          maxLength: 60
+        diagnostico:
+          type: string
+          maxLength: 255
+        tiene_adjunto:
+          type: boolean
+        numero_documento:
+          type: string
+          maxLength: 60
+        personal:
+          type: integer
+      required:
+      - created_at
+      - fecha_fin
+      - fecha_inicio
+      - id
+      - motivo
+      - personal
+      - updated_at
+    DescargaMarcacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fuente:
+          $ref: '#/components/schemas/FuenteEnum'
+        observacion:
+          type: string
+          maxLength: 255
+        dispositivo:
+          type: integer
+          nullable: true
+        ejecutado_por:
+          type: integer
+          nullable: true
+      required:
+      - created_at
+      - id
+      - updated_at
+    DireccionTipoEnum:
+      enum:
+      - IP
+      - DOMINIO
+      type: string
+      description: |-
+        * `IP` - Direccion IP
+        * `DOMINIO` - Dominio
+    Dispositivo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 120
+        direccion_tipo:
+          $ref: '#/components/schemas/DireccionTipoEnum'
+        direccion:
+          type: string
+          maxLength: 255
+        comunicacion:
+          type: string
+          maxLength: 40
+        puerto:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        uso:
+          $ref: '#/components/schemas/UsoEnum'
+        activo:
+          type: boolean
+      required:
+      - created_at
+      - direccion
+      - id
+      - nombre
+      - updated_at
+    Empresa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        razon_social:
+          type: string
+          maxLength: 255
+        ruc:
+          type: string
+          maxLength: 20
+        correo:
+          type: string
+          format: email
+          maxLength: 254
+        logo:
+          type: string
+          format: uri
+          nullable: true
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - id
+      - razon_social
+      - ruc
+      - updated_at
+    EstadoBc2Enum:
+      enum:
+      - ACTIVO
+      - INACTIVO
+      type: string
+      description: |-
+        * `ACTIVO` - Activo
+        * `INACTIVO` - Inactivo
+    EstadoDiaEnum:
+      enum:
+      - ASISTIO
+      - FALTA
+      - JUSTIFICADO
+      - DESCANSO_MEDICO
+      - DESCANSO
+      - FERIADO
+      type: string
+      description: |-
+        * `ASISTIO` - Asistio
+        * `FALTA` - Falta
+        * `JUSTIFICADO` - Justificado
+        * `DESCANSO_MEDICO` - Descanso medico
+        * `DESCANSO` - Descanso
+        * `FERIADO` - Feriado
+    FuenteEnum:
+      enum:
+      - DISPOSITIVO
+      - USB
+      - EXCEL
+      type: string
+      description: |-
+        * `DISPOSITIVO` - Dispositivo
+        * `USB` - USB
+        * `EXCEL` - Importacion Excel
+    HealthCheckResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+        timestamp:
+          type: string
+      required:
+      - service
+      - status
+      - timestamp
+    Justificacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        motivo:
+          type: string
+          maxLength: 180
+        tipo:
+          $ref: '#/components/schemas/JustificacionTipoEnum'
+        rango:
+          $ref: '#/components/schemas/RangoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        descripcion:
+          type: string
+        tiene_adjunto:
+          type: boolean
+        numero_documento:
+          type: string
+          maxLength: 50
+        nombre_documento:
+          type: string
+          maxLength: 180
+        estado:
+          $ref: '#/components/schemas/JustificacionEstadoEnum'
+        fecha_gestion:
+          type: string
+          format: date-time
+          nullable: true
+        motivo_no_autorizacion:
+          type: string
+        personal:
+          type: integer
+        sucursal:
+          type: integer
+        area:
+          type: integer
+        gestionado_por:
+          type: integer
+          nullable: true
+      required:
+      - area
+      - created_at
+      - fecha_fin
+      - fecha_inicio
+      - id
+      - motivo
+      - personal
+      - sucursal
+      - updated_at
+    JustificacionEstadoEnum:
+      enum:
+      - AUTORIZADO
+      - NO_AUTORIZADO
+      - PENDIENTE
+      type: string
+      description: |-
+        * `AUTORIZADO` - Autorizado
+        * `NO_AUTORIZADO` - No Autorizado
+        * `PENDIENTE` - Pendiente
+    JustificacionTipoEnum:
+      enum:
+      - SALIDA
+      - INGRESO
+      type: string
+      description: |-
+        * `SALIDA` - Salida
+        * `INGRESO` - Ingreso
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - username
+    LoginResponse:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - access
+      - refresh
+      - user
+    Marcacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo_equipo:
+          type: string
+          maxLength: 40
+        fecha_hora:
+          type: string
+          format: date-time
+        tipo_evento:
+          $ref: '#/components/schemas/TipoEventoEnum'
+        situacion:
+          $ref: '#/components/schemas/SituacionEnum'
+        personal:
+          type: integer
+        dispositivo:
+          type: integer
+          nullable: true
+        descarga:
+          type: integer
+          nullable: true
+      required:
+      - created_at
+      - fecha_hora
+      - id
+      - personal
+      - updated_at
+    MotivoEnum:
+      enum:
+      - SALUD
+      - SUBSIDIO
+      type: string
+      description: |-
+        * `SALUD` - Por salud
+        * `SUBSIDIO` - Subsidio
+    PatchedArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 150
+        tipo:
+          $ref: '#/components/schemas/AreaTipoEnum'
+        activo:
+          type: boolean
+        sucursal:
+          type: integer
+        parent:
+          type: integer
+          nullable: true
+    PatchedAsistenciaDiaria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        hora_entrada_programada_texto:
+          type: string
+          readOnly: true
+        hora_salida_programada_texto:
+          type: string
+          readOnly: true
+        hora_entrada_real_texto:
+          type: string
+          readOnly: true
+        hora_salida_real_texto:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha:
+          type: string
+          format: date
+        bloque_orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        estado_dia:
+          $ref: '#/components/schemas/EstadoDiaEnum'
+        hora_entrada_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_entrada_real:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_real:
+          type: string
+          format: time
+          nullable: true
+        minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+    PatchedBoletaConcepto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/BoletaConceptoTipoEnum'
+        concepto:
+          type: string
+          maxLength: 120
+        monto:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        boleta:
+          type: integer
+    PatchedBoletaMensual:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anio:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mes:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        sueldo_base:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_ingresos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_descuentos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        neto_pagar:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        estado:
+          $ref: '#/components/schemas/BoletaMensualEstadoEnum'
+        archivo_pdf:
+          type: string
+          format: uri
+          nullable: true
+        personal:
+          type: integer
+    PatchedCargo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 150
+        activo:
+          type: boolean
+    PatchedCategoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        periodos_vacacionales:
+          type: boolean
+        dias_por_periodo:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        activo:
+          type: boolean
+    PatchedDescansoMedico:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        motivo:
+          $ref: '#/components/schemas/MotivoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        citt:
+          type: string
+          maxLength: 60
+        diagnostico:
+          type: string
+          maxLength: 255
+        tiene_adjunto:
+          type: boolean
+        numero_documento:
+          type: string
+          maxLength: 60
+        personal:
+          type: integer
+    PatchedDescargaMarcacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fuente:
+          $ref: '#/components/schemas/FuenteEnum'
+        observacion:
+          type: string
+          maxLength: 255
+        dispositivo:
+          type: integer
+          nullable: true
+        ejecutado_por:
+          type: integer
+          nullable: true
+    PatchedDispositivo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 120
+        direccion_tipo:
+          $ref: '#/components/schemas/DireccionTipoEnum'
+        direccion:
+          type: string
+          maxLength: 255
+        comunicacion:
+          type: string
+          maxLength: 40
+        puerto:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        uso:
+          $ref: '#/components/schemas/UsoEnum'
+        activo:
+          type: boolean
+    PatchedEmpresa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        razon_social:
+          type: string
+          maxLength: 255
+        ruc:
+          type: string
+          maxLength: 20
+        correo:
+          type: string
+          format: email
+          maxLength: 254
+        logo:
+          type: string
+          format: uri
+          nullable: true
+        activo:
+          type: boolean
+    PatchedJustificacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        motivo:
+          type: string
+          maxLength: 180
+        tipo:
+          $ref: '#/components/schemas/JustificacionTipoEnum'
+        rango:
+          $ref: '#/components/schemas/RangoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        descripcion:
+          type: string
+        tiene_adjunto:
+          type: boolean
+        numero_documento:
+          type: string
+          maxLength: 50
+        nombre_documento:
+          type: string
+          maxLength: 180
+        estado:
+          $ref: '#/components/schemas/JustificacionEstadoEnum'
+        fecha_gestion:
+          type: string
+          format: date-time
+          nullable: true
+        motivo_no_autorizacion:
+          type: string
+        personal:
+          type: integer
+        sucursal:
+          type: integer
+        area:
+          type: integer
+        gestionado_por:
+          type: integer
+          nullable: true
+    PatchedMarcacion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo_equipo:
+          type: string
+          maxLength: 40
+        fecha_hora:
+          type: string
+          format: date-time
+        tipo_evento:
+          $ref: '#/components/schemas/TipoEventoEnum'
+        situacion:
+          $ref: '#/components/schemas/SituacionEnum'
+        personal:
+          type: integer
+        dispositivo:
+          type: integer
+          nullable: true
+        descarga:
+          type: integer
+          nullable: true
+    PatchedPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        tipo_documento_nombre:
+          type: string
+          readOnly: true
+        tipo_trabajador_nombre:
+          type: string
+          readOnly: true
+        categoria_nombre:
+          type: string
+          readOnly: true
+        tipo_sindicato_nombre:
+          type: string
+          readOnly: true
+        cargo_nombre:
+          type: string
+          readOnly: true
+        ubicacion_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo_empleado:
+          type: string
+          maxLength: 30
+        numero_documento:
+          type: string
+          maxLength: 20
+        nombres_completos:
+          type: string
+          maxLength: 255
+        correo:
+          type: string
+          format: email
+          maxLength: 254
+        telefono:
+          type: string
+          maxLength: 30
+        fecha_ingreso:
+          type: string
+          format: date
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/EstadoBc2Enum'
+        empresa:
+          type: integer
+        sucursal:
+          type: integer
+        area:
+          type: integer
+        ubicacion:
+          type: integer
+          nullable: true
+        tipo_documento:
+          type: integer
+        tipo_trabajador:
+          type: integer
+        categoria:
+          type: integer
+        tipo_sindicato:
+          type: integer
+          nullable: true
+        cargo:
+          type: integer
+          nullable: true
+    PatchedPersonalTurno:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_nombre:
+          type: string
+          readOnly: true
+        personal_documento:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        turno_codigo:
+          type: string
+          readOnly: true
+        turno_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+          nullable: true
+        observacion:
+          type: string
+          maxLength: 255
+        personal:
+          type: integer
+        turno:
+          type: integer
+    PatchedReporteAsistenciaDiaria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        hora_entrada_programada_texto:
+          type: string
+          readOnly: true
+        hora_salida_programada_texto:
+          type: string
+          readOnly: true
+        hora_entrada_real_texto:
+          type: string
+          readOnly: true
+        hora_salida_real_texto:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha:
+          type: string
+          format: date
+        bloque_orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        estado_dia:
+          $ref: '#/components/schemas/EstadoDiaEnum'
+        hora_entrada_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_entrada_real:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_real:
+          type: string
+          format: time
+          nullable: true
+        minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+    PatchedReporteConceptoPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/ReporteConceptoPersonalTipoEnum'
+        codigo:
+          type: string
+          maxLength: 20
+        concepto:
+          type: string
+          maxLength: 150
+        monto:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        reporte:
+          type: integer
+    PatchedReporteIncidenciaPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        rango_fechas:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/ReporteIncidenciaPersonalTipoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        cantidad_dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        cantidad_minutos:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        referencia_modelo:
+          type: string
+          maxLength: 50
+        referencia_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+        descripcion:
+          type: string
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+    PatchedReportePersonalMensual:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        tipo_documento_nombre:
+          type: string
+          readOnly: true
+        tipo_trabajador_nombre:
+          type: string
+          readOnly: true
+        categoria_nombre:
+          type: string
+          readOnly: true
+        cargo_nombre:
+          type: string
+          readOnly: true
+        periodo:
+          type: string
+          readOnly: true
+        resumen:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anio:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mes:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        sueldo_base:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_ingresos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_descuentos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        neto_pagar:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_dias_periodo:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_laborados:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_falta:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_justificados:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_descanso_medico:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        total_horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        estado:
+          $ref: '#/components/schemas/ReportePersonalMensualEstadoEnum'
+        observacion:
+          type: string
+          maxLength: 255
+        archivo_pdf:
+          type: string
+          format: uri
+          nullable: true
+        personal:
+          type: integer
+    PatchedSucursal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        empresa_codigo:
+          type: string
+          readOnly: true
+        descripcion:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+        empresa:
+          type: integer
+    PatchedTipoDocumento:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 10
+        descripcion:
+          type: string
+          maxLength: 80
+        activo:
+          type: boolean
+    PatchedTipoSindicato:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+    PatchedTipoTrabajador:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+    PatchedTurno:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        horario:
+          type: string
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 180
+        tipo:
+          $ref: '#/components/schemas/TurnoTipoEnum'
+        activo:
+          type: boolean
+    PatchedTurnoBloqueHorario:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        turno_codigo:
+          type: string
+          readOnly: true
+        turno_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        hora_entrada:
+          type: string
+          format: time
+        hora_salida:
+          type: string
+          format: time
+        turno:
+          type: integer
+    PatchedUbicacionGeografica:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        pais:
+          type: string
+          default: Peru
+          maxLength: 80
+        departamento:
+          type: string
+          maxLength: 80
+        provincia:
+          type: string
+          maxLength: 80
+        distrito:
+          type: string
+          maxLength: 80
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nombre de usuario
+          description: 'Requerido. 150 carácteres como máximo. Únicamente letras,
+            dígitos y @/./+/-/_ '
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Dirección de correo electrónico
+          maxLength: 254
+        first_name:
+          type: string
+          title: Nombre
+          maxLength: 150
+        last_name:
+          type: string
+          title: Apellidos
+          maxLength: 150
+        nombre_completo:
+          type: string
+          readOnly: true
+        rol:
+          type: string
+          readOnly: true
+        is_staff:
+          type: boolean
+          title: Es staff
+          description: Indica si el usuario puede entrar en este sitio de administración.
+        is_active:
+          type: boolean
+          title: Activo
+          description: Indica si el usuario debe ser tratado como activo. Desmarque
+            esta opción en lugar de borrar la cuenta.
+        is_superuser:
+          type: boolean
+          title: Estado de superusuario
+          description: Indica que este usuario tiene todos los permisos sin asignárselos
+            explícitamente.
+        modulos_visibles:
+          type: string
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        module_permissions:
+          type: string
+          readOnly: true
+        module_permissions_input:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          writeOnly: true
+    Personal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        tipo_documento_nombre:
+          type: string
+          readOnly: true
+        tipo_trabajador_nombre:
+          type: string
+          readOnly: true
+        categoria_nombre:
+          type: string
+          readOnly: true
+        tipo_sindicato_nombre:
+          type: string
+          readOnly: true
+        cargo_nombre:
+          type: string
+          readOnly: true
+        ubicacion_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo_empleado:
+          type: string
+          maxLength: 30
+        numero_documento:
+          type: string
+          maxLength: 20
+        nombres_completos:
+          type: string
+          maxLength: 255
+        correo:
+          type: string
+          format: email
+          maxLength: 254
+        telefono:
+          type: string
+          maxLength: 30
+        fecha_ingreso:
+          type: string
+          format: date
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/EstadoBc2Enum'
+        empresa:
+          type: integer
+        sucursal:
+          type: integer
+        area:
+          type: integer
+        ubicacion:
+          type: integer
+          nullable: true
+        tipo_documento:
+          type: integer
+        tipo_trabajador:
+          type: integer
+        categoria:
+          type: integer
+        tipo_sindicato:
+          type: integer
+          nullable: true
+        cargo:
+          type: integer
+          nullable: true
+      required:
+      - area
+      - area_nombre
+      - cargo_nombre
+      - categoria
+      - categoria_nombre
+      - codigo_empleado
+      - created_at
+      - empresa
+      - empresa_nombre
+      - id
+      - nombres_completos
+      - numero_documento
+      - sucursal
+      - sucursal_nombre
+      - tipo_documento
+      - tipo_documento_nombre
+      - tipo_sindicato_nombre
+      - tipo_trabajador
+      - tipo_trabajador_nombre
+      - ubicacion_nombre
+      - updated_at
+    PersonalTurno:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_nombre:
+          type: string
+          readOnly: true
+        personal_documento:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        turno_codigo:
+          type: string
+          readOnly: true
+        turno_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+          nullable: true
+        observacion:
+          type: string
+          maxLength: 255
+        personal:
+          type: integer
+        turno:
+          type: integer
+      required:
+      - area_nombre
+      - created_at
+      - fecha_inicio
+      - id
+      - personal
+      - personal_documento
+      - personal_nombre
+      - sucursal_nombre
+      - turno
+      - turno_codigo
+      - turno_nombre
+      - updated_at
+    RangoEnum:
+      enum:
+      - PARCIAL
+      - COMPLETO
+      type: string
+      description: |-
+        * `PARCIAL` - Parcial
+        * `COMPLETO` - Completo
+    ReporteAsistenciaDiaria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        hora_entrada_programada_texto:
+          type: string
+          readOnly: true
+        hora_salida_programada_texto:
+          type: string
+          readOnly: true
+        hora_entrada_real_texto:
+          type: string
+          readOnly: true
+        hora_salida_real_texto:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        fecha:
+          type: string
+          format: date
+        bloque_orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        estado_dia:
+          $ref: '#/components/schemas/EstadoDiaEnum'
+        hora_entrada_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_programada:
+          type: string
+          format: time
+          nullable: true
+        hora_entrada_real:
+          type: string
+          format: time
+          nullable: true
+        hora_salida_real:
+          type: string
+          format: time
+          nullable: true
+        minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+      required:
+      - area_nombre
+      - created_at
+      - empresa_nombre
+      - fecha
+      - hora_entrada_programada_texto
+      - hora_entrada_real_texto
+      - hora_salida_programada_texto
+      - hora_salida_real_texto
+      - id
+      - personal_codigo_empleado
+      - personal_id
+      - personal_nombres_completos
+      - personal_numero_documento
+      - reporte
+      - reporte_anio
+      - reporte_mes
+      - reporte_periodo
+      - sucursal_nombre
+      - updated_at
+    ReporteConceptoPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/ReporteConceptoPersonalTipoEnum'
+        codigo:
+          type: string
+          maxLength: 20
+        concepto:
+          type: string
+          maxLength: 150
+        monto:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        reporte:
+          type: integer
+      required:
+      - area_nombre
+      - concepto
+      - created_at
+      - empresa_nombre
+      - id
+      - personal_codigo_empleado
+      - personal_id
+      - personal_nombres_completos
+      - personal_numero_documento
+      - reporte
+      - reporte_anio
+      - reporte_mes
+      - reporte_periodo
+      - sucursal_nombre
+      - updated_at
+    ReporteConceptoPersonalTipoEnum:
+      enum:
+      - INGRESO
+      - DESCUENTO
+      - APORTE_TRABAJADOR
+      - APORTE_EMPLEADOR
+      - OTRO
+      type: string
+      description: |-
+        * `INGRESO` - Ingreso
+        * `DESCUENTO` - Descuento
+        * `APORTE_TRABAJADOR` - Aporte trabajador
+        * `APORTE_EMPLEADOR` - Aporte empleador
+        * `OTRO` - Otro
+    ReporteIncidenciaPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        reporte_anio:
+          type: integer
+          readOnly: true
+        reporte_mes:
+          type: integer
+          readOnly: true
+        reporte_periodo:
+          type: string
+          readOnly: true
+        rango_fechas:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tipo:
+          $ref: '#/components/schemas/ReporteIncidenciaPersonalTipoEnum'
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        cantidad_dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        cantidad_minutos:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        referencia_modelo:
+          type: string
+          maxLength: 50
+        referencia_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+        descripcion:
+          type: string
+        observacion:
+          type: string
+          maxLength: 255
+        reporte:
+          type: integer
+      required:
+      - area_nombre
+      - created_at
+      - empresa_nombre
+      - fecha_fin
+      - fecha_inicio
+      - id
+      - personal_codigo_empleado
+      - personal_id
+      - personal_nombres_completos
+      - personal_numero_documento
+      - rango_fechas
+      - reporte
+      - reporte_anio
+      - reporte_mes
+      - reporte_periodo
+      - sucursal_nombre
+      - updated_at
+    ReporteIncidenciaPersonalTipoEnum:
+      enum:
+      - TARDANZA
+      - FALTA
+      - JUSTIFICACION
+      - DESCANSO_MEDICO
+      - LICENCIA
+      - OTRO
+      type: string
+      description: |-
+        * `TARDANZA` - Tardanza
+        * `FALTA` - Falta
+        * `JUSTIFICACION` - Justificacion
+        * `DESCANSO_MEDICO` - Descanso medico
+        * `LICENCIA` - Licencia
+        * `OTRO` - Otro
+    ReportePersonalMensual:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        personal_codigo_empleado:
+          type: string
+          readOnly: true
+        personal_numero_documento:
+          type: string
+          readOnly: true
+        personal_nombres_completos:
+          type: string
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        sucursal_nombre:
+          type: string
+          readOnly: true
+        area_nombre:
+          type: string
+          readOnly: true
+        tipo_documento_nombre:
+          type: string
+          readOnly: true
+        tipo_trabajador_nombre:
+          type: string
+          readOnly: true
+        categoria_nombre:
+          type: string
+          readOnly: true
+        cargo_nombre:
+          type: string
+          readOnly: true
+        periodo:
+          type: string
+          readOnly: true
+        resumen:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anio:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mes:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        fecha_inicio:
+          type: string
+          format: date
+        fecha_fin:
+          type: string
+          format: date
+        sueldo_base:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_ingresos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_descuentos:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        neto_pagar:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_dias_periodo:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_laborados:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_falta:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_justificados:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_dias_descanso_medico:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_minutos_tardanza:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        total_horas_trabajadas:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        total_horas_extra:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        estado:
+          $ref: '#/components/schemas/ReportePersonalMensualEstadoEnum'
+        observacion:
+          type: string
+          maxLength: 255
+        archivo_pdf:
+          type: string
+          format: uri
+          nullable: true
+        personal:
+          type: integer
+      required:
+      - anio
+      - area_nombre
+      - cargo_nombre
+      - categoria_nombre
+      - created_at
+      - empresa_nombre
+      - fecha_fin
+      - fecha_inicio
+      - id
+      - mes
+      - periodo
+      - personal
+      - personal_codigo_empleado
+      - personal_nombres_completos
+      - personal_numero_documento
+      - resumen
+      - sucursal_nombre
+      - tipo_documento_nombre
+      - tipo_trabajador_nombre
+      - updated_at
+    ReportePersonalMensualEstadoEnum:
+      enum:
+      - BORRADOR
+      - GENERADO
+      - CERRADO
+      type: string
+      description: |-
+        * `BORRADOR` - Borrador
+        * `GENERADO` - Generado
+        * `CERRADO` - Cerrado
+    SituacionEnum:
+      enum:
+      - ACTIVO
+      - INACTIVO
+      type: string
+      description: |-
+        * `ACTIVO` - Activo
+        * `INACTIVO` - Inactivo
+    Sucursal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa_nombre:
+          type: string
+          readOnly: true
+        empresa_codigo:
+          type: string
+          readOnly: true
+        descripcion:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+        empresa:
+          type: integer
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - empresa
+      - empresa_codigo
+      - empresa_nombre
+      - id
+      - nombre
+      - updated_at
+    TipoDocumento:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 10
+        descripcion:
+          type: string
+          maxLength: 80
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - descripcion_larga
+      - id
+      - updated_at
+    TipoEventoEnum:
+      enum:
+      - ENTRADA
+      - SALIDA
+      type: string
+      description: |-
+        * `ENTRADA` - Entrada
+        * `SALIDA` - Salida
+    TipoSindicato:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - descripcion_larga
+      - id
+      - updated_at
+    TipoTrabajador:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        descripcion:
+          type: string
+          maxLength: 120
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion
+      - descripcion_larga
+      - id
+      - updated_at
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+    Turno:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        horario:
+          type: string
+          readOnly: true
+        descripcion_larga:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        codigo:
+          type: string
+          maxLength: 20
+        nombre:
+          type: string
+          maxLength: 180
+        tipo:
+          $ref: '#/components/schemas/TurnoTipoEnum'
+        activo:
+          type: boolean
+      required:
+      - codigo
+      - created_at
+      - descripcion_larga
+      - horario
+      - id
+      - nombre
+      - updated_at
+    TurnoBloqueHorario:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        turno_codigo:
+          type: string
+          readOnly: true
+        turno_nombre:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        orden:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          default: 1
+        hora_entrada:
+          type: string
+          format: time
+        hora_salida:
+          type: string
+          format: time
+        turno:
+          type: integer
+      required:
+      - created_at
+      - hora_entrada
+      - hora_salida
+      - id
+      - turno
+      - turno_codigo
+      - turno_nombre
+      - updated_at
+    TurnoTipoEnum:
+      enum:
+      - GENERAL
+      - GENERAL_PERSONALIZADO
+      - DESCANSO
+      type: string
+      description: |-
+        * `GENERAL` - General
+        * `GENERAL_PERSONALIZADO` - General Personalizado
+        * `DESCANSO` - Descanso
+    UbicacionGeografica:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descripcion:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        pais:
+          type: string
+          default: Peru
+          maxLength: 80
+        departamento:
+          type: string
+          maxLength: 80
+        provincia:
+          type: string
+          maxLength: 80
+        distrito:
+          type: string
+          maxLength: 80
+      required:
+      - created_at
+      - departamento
+      - descripcion
+      - distrito
+      - id
+      - provincia
+      - updated_at
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nombre de usuario
+          description: 'Requerido. 150 carácteres como máximo. Únicamente letras,
+            dígitos y @/./+/-/_ '
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Dirección de correo electrónico
+          maxLength: 254
+        first_name:
+          type: string
+          title: Nombre
+          maxLength: 150
+        last_name:
+          type: string
+          title: Apellidos
+          maxLength: 150
+        nombre_completo:
+          type: string
+          readOnly: true
+        rol:
+          type: string
+          readOnly: true
+        is_staff:
+          type: boolean
+          title: Es staff
+          description: Indica si el usuario puede entrar en este sitio de administración.
+        is_active:
+          type: boolean
+          title: Activo
+          description: Indica si el usuario debe ser tratado como activo. Desmarque
+            esta opción en lugar de borrar la cuenta.
+        is_superuser:
+          type: boolean
+          title: Estado de superusuario
+          description: Indica que este usuario tiene todos los permisos sin asignárselos
+            explícitamente.
+        modulos_visibles:
+          type: string
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        module_permissions:
+          type: string
+          readOnly: true
+        module_permissions_input:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          writeOnly: true
+      required:
+      - id
+      - module_permissions
+      - modulos_visibles
+      - nombre_completo
+      - rol
+      - username
+    UsoEnum:
+      enum:
+      - ASISTENCIA
+      - ACCESO
+      type: string
+      description: |-
+        * `ASISTENCIA` - Control de Asistencia
+        * `ACCESO` - Control de Acceso
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

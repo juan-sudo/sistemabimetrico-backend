@@ -1,0 +1,1 @@
+"""Usuario domain package."""

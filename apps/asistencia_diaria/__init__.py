@@ -1,0 +1,1 @@
+"""Asistencia diaria CRUD package."""

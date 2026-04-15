@@ -1,0 +1,1 @@
+"""ReporteConceptoPersonal domain package."""

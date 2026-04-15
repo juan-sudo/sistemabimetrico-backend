@@ -1,0 +1,1 @@
+"""BoletaConcepto domain package."""

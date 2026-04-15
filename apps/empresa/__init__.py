@@ -1,0 +1,1 @@
+"""Empresa domain package."""

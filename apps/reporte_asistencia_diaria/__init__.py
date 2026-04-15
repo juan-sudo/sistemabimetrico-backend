@@ -1,0 +1,1 @@
+"""ReporteAsistenciaDiaria domain package."""

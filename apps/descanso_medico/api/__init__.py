@@ -1,0 +1,1 @@
+"""DescansoMedico API package."""
