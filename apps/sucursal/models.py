@@ -15,6 +15,11 @@ class Sucursal(TimestampedModel):
         constraints = [
             models.UniqueConstraint(fields=["empresa", "codigo"], name="uq_sucursal_empresa_codigo"),
         ]
+        indexes = [
+            models.Index(fields=["nombre"], name="idx_sucursal_nombre"),
+            models.Index(fields=["empresa", "nombre"], name="idx_sucursal_empresa_nombre"),
+            models.Index(fields=["activo", "nombre"], name="idx_sucursal_activo_nombre"),
+        ]
 
     def __str__(self):
         return f"{self.nombre} ({self.codigo})"

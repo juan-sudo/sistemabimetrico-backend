@@ -1,4 +1,5 @@
-from rest_framework.filters import OrderingFilter, SearchFilter
+from django.db.models import Q
+from rest_framework.filters import OrderingFilter
 from rest_framework.pagination import PageNumberPagination
 
 from apps.core.api import BaseModelViewSet
@@ -7,9 +8,9 @@ from apps.empresa.serializers import EmpresaListSerializer, EmpresaSerializer
 
 
 class EmpresaPagination(PageNumberPagination):
-    page_size = 25
+    page_size = 20
     page_size_query_param = "page_size"
-    max_page_size = 100
+    max_page_size = 50
 
 
 class EmpresaViewSet(BaseModelViewSet):
@@ -21,15 +22,31 @@ class EmpresaViewSet(BaseModelViewSet):
         "correo",
         "logo",
         "activo",
-        "created_at",
-        "updated_at",
     ).order_by("razon_social")
     serializer_class = EmpresaSerializer
     pagination_class = EmpresaPagination
-    filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ["codigo", "razon_social", "ruc", "correo"]
+    filter_backends = [OrderingFilter]
     ordering_fields = ["codigo", "razon_social", "ruc", "created_at", "updated_at"]
     ordering = ["razon_social"]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        q = (self.request.query_params.get("q") or self.request.query_params.get("search") or "").strip()
+        activo = (self.request.query_params.get("activo") or "").strip().lower()
+
+        if activo in {"1", "true", "si", "sí", "activo"}:
+            queryset = queryset.filter(activo=True)
+        elif activo in {"0", "false", "no", "inactivo"}:
+            queryset = queryset.filter(activo=False)
+
+        if q:
+            queryset = queryset.filter(
+                Q(codigo__icontains=q)
+                | Q(razon_social__icontains=q)
+                | Q(ruc__icontains=q)
+                | Q(correo__icontains=q)
+            )
+        return queryset
 
     def get_serializer_class(self):
         if self.action == "list":

@@ -11,6 +11,10 @@ class TipoTrabajador(TimestampedModel):
     class Meta:
         db_table = "tipos_trabajador"
         ordering = ["descripcion"]
+        indexes = [
+            models.Index(fields=["descripcion"], name="idx_tipo_trab_desc"),
+            models.Index(fields=["activo", "descripcion"], name="idx_tipo_trab_activo_desc"),
+        ]
 
     def __str__(self):
         return self.descripcion

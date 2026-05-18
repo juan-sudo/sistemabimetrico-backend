@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class UsuarioViewSet(BaseModelViewSet):
-    queryset = User.objects.prefetch_related("module_permissions").all().order_by("username")
+    queryset = get_usuario_queryset().order_by("username")
     serializer_class = UserSerializer
 
     def get_queryset(self):

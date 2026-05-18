@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Prefetch
 
 from apps.turnos.models.personal_turno import PersonalTurno
 from apps.turnos.models.turno import Turno
@@ -6,7 +7,17 @@ from apps.turnos.models.turno_bloque_horario import TurnoBloqueHorario
 
 
 def get_turno_queryset():
-    return Turno.objects.prefetch_related("bloques").all()
+    ordered_bloques_prefetch = Prefetch(
+        "bloques",
+        queryset=TurnoBloqueHorario.objects.only(
+            "id",
+            "turno_id",
+            "orden",
+            "hora_entrada",
+            "hora_salida",
+        ).order_by("orden"),
+    )
+    return Turno.objects.only("id", "codigo", "nombre", "tipo", "activo").prefetch_related(ordered_bloques_prefetch).all()
 
 
 def filter_turno_queryset(queryset, *, activo=None, tipo=None, q=None):
@@ -42,6 +53,8 @@ def get_personal_turno_queryset():
         "personal__sucursal",
         "personal__area",
         "turno",
+    ).prefetch_related(
+        "turno__bloques",
     ).all()
 
 

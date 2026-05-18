@@ -14,6 +14,10 @@ class Empresa(TimestampedModel):
     class Meta:
         db_table = "empresas"
         ordering = ["razon_social"]
+        indexes = [
+            models.Index(fields=["razon_social"], name="idx_empresa_razon_social"),
+            models.Index(fields=["activo", "razon_social"], name="idx_empresa_activo_razon"),
+        ]
 
     def __str__(self):
         return self.razon_social

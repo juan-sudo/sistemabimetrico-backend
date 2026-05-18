@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Any
 
@@ -37,15 +38,8 @@ def _json_safe(value: Any) -> Any:
 def _extract_raw_data(raw: Any) -> dict[str, Any]:
     raw_dict: dict[str, Any] = {}
     preferred_fields = (
-        "uid",
-        "user_id",
-        "timestamp",
-        "punch",
-        "status",
-        "verify_type",
-        "work_code",
-        "workcode",
-        "card",
+        "uid", "user_id", "timestamp", "punch",
+        "status", "verify_type", "work_code", "workcode", "card",
     )
     for field in preferred_fields:
         if hasattr(raw, field):
@@ -60,10 +54,9 @@ def _extract_raw_data(raw: Any) -> dict[str, Any]:
         raw_vars = {}
     for key, value in raw_vars.items():
         key_str = str(key)
-        if key_str.startswith("_"):
+        if key_str.startswith("_") or key_str in raw_dict:
             continue
-        if key_str not in raw_dict:
-            raw_dict[key_str] = _json_safe(value)
+        raw_dict[key_str] = _json_safe(value)
 
     return raw_dict
 
@@ -83,56 +76,34 @@ def _parse_attendance(raw: Any) -> AttendanceRecord:
         or getattr(raw, "pin", None)
         or ""
     )
-    if user_code is None:
-        user_code = ""
     punch = getattr(raw, "punch", None)
     timestamp = getattr(raw, "timestamp", None)
     return AttendanceRecord(
-        user_code=str(user_code).strip(),
+        user_code=str(user_code or "").strip(),
         timestamp=_normalize_timestamp(timestamp),
         punch=int(punch) if punch is not None else None,
         raw_data=_extract_raw_data(raw),
     )
 
 
-def read_attendance_logs(host: str, port: int, password: int = 0, timeout: int = 10) -> list[AttendanceRecord]:
+def _get_zk_class():
     try:
         from zk import ZK  # type: ignore
-    except Exception as exc:  # pragma: no cover - depende del entorno
+        return ZK
+    except Exception as exc:
         raise BiometricConnectionError(
             "No esta instalada la libreria del reloj. Instala 'pyzk' en el backend."
         ) from exc
 
-    zk = ZK(
-        host,
-        port=port,
-        timeout=timeout,
-        password=password,
-        force_udp=False,
-        ommit_ping=False,
-    )
+
+@contextmanager
+def _zk_connection(host: str, port: int, password: int, timeout: int):
+    ZK = _get_zk_class()
+    zk = ZK(host, port=port, timeout=timeout, password=password, force_udp=False, ommit_ping=True)
     conn = None
     try:
         conn = zk.connect()
-        try:
-            attendance = conn.get_attendance() or []
-        except Exception as exc:
-            raise BiometricConnectionError("No se pudo leer marcaciones del dispositivo.") from exc
-        users_by_code: dict[str, str] = {}
-        try:
-            users = conn.get_users() or []
-            for user in users:
-                code = str(getattr(user, "user_id", None) or getattr(user, "uid", None) or "").strip()
-                if not code:
-                    continue
-                users_by_code[code] = str(getattr(user, "name", "") or "").strip()
-        except Exception:
-            users_by_code = {}
-
-        parsed_records = [_parse_attendance(item) for item in attendance]
-        for record in parsed_records:
-            record.device_user_name = users_by_code.get(record.user_code, "")
-        return parsed_records
+        yield conn
     except BiometricConnectionError:
         raise
     except Exception as exc:
@@ -147,25 +118,31 @@ def read_attendance_logs(host: str, port: int, password: int = 0, timeout: int =
                 pass
 
 
-def read_device_capacity(host: str, port: int, password: int = 0, timeout: int = 10) -> dict[str, Any]:
-    try:
-        from zk import ZK  # type: ignore
-    except Exception as exc:  # pragma: no cover - depende del entorno
-        raise BiometricConnectionError(
-            "No esta instalada la libreria del reloj. Instala 'pyzk' en el backend."
-        ) from exc
+def read_attendance_logs(host: str, port: int, password: int = 0, timeout: int = 10) -> list[AttendanceRecord]:
+    with _zk_connection(host, port, password, timeout) as conn:
+        try:
+            attendance = conn.get_attendance() or []
+        except Exception as exc:
+            raise BiometricConnectionError("No se pudo leer marcaciones del dispositivo.") from exc
 
-    zk = ZK(
-        host,
-        port=port,
-        timeout=timeout,
-        password=password,
-        force_udp=False,
-        ommit_ping=False,
-    )
-    conn = None
-    try:
-        conn = zk.connect()
+        users_by_code: dict[str, str] = {}
+        try:
+            users = conn.get_users() or []
+            for user in users:
+                code = str(getattr(user, "user_id", None) or getattr(user, "uid", None) or "").strip()
+                if code:
+                    users_by_code[code] = str(getattr(user, "name", "") or "").strip()
+        except Exception:
+            pass
+
+        parsed_records = [_parse_attendance(item) for item in attendance]
+        for record in parsed_records:
+            record.device_user_name = users_by_code.get(record.user_code, "")
+        return parsed_records
+
+
+def read_device_capacity(host: str, port: int, password: int = 0, timeout: int = 10) -> dict[str, Any]:
+    with _zk_connection(host, port, password, timeout) as conn:
         try:
             conn.read_sizes()
         except Exception as exc:
@@ -188,81 +165,33 @@ def read_device_capacity(host: str, port: int, password: int = 0, timeout: int =
             "caras_capacidad": int(getattr(conn, "faces_cap", 0) or 0),
             "tarjetas_usadas": int(getattr(conn, "cards", 0) or 0),
         }
-    except BiometricConnectionError:
-        raise
-    except Exception as exc:
-        raise BiometricConnectionError(
-            f"No se pudo conectar al dispositivo biometrico {host}:{port}."
-        ) from exc
-    finally:
-        if conn is not None:
-            try:
-                conn.disconnect()
-            except Exception:
-                pass
 
 
-def probe_device_connection(host: str, port: int, password: int = 0, timeout: int = 5) -> dict[str, Any]:
-    try:
-        from pyzkaccess import ZKAccess  # type: ignore
+def probe_device_connection(host: str, port: int, password: int = 0, timeout: int = 8) -> dict[str, Any]:
+    ZK = _get_zk_class()
 
-        connstr = (
-            f"protocol=TCP,ipaddress={host},port={port},"
-            f"timeout={max(1, int(timeout)) * 1000},passwd={password}"
-        )
-        zk = ZKAccess(connstr=connstr)
-        zk.connect()
+    # Try TCP first, then UDP as fallback (some ZKTeco models require UDP)
+    last_exc: Exception | None = None
+    for force_udp in (False, True):
+        zk = ZK(host, port=port, timeout=timeout, password=password, force_udp=force_udp, ommit_ping=True)
+        conn = None
         try:
+            conn = zk.connect()
             return {
                 "host": host,
                 "port": port,
                 "estado": "ok",
-                "detalle": "Conexion establecida correctamente en modo solo lectura.",
+                "detalle": "Conexion establecida correctamente.",
             }
+        except Exception as exc:
+            last_exc = exc
         finally:
-            try:
-                zk.disconnect()
-            except Exception:
-                pass
-    except ImportError:
-        # Fallback para entornos donde solo esta instalada la libreria pyzk.
-        pass
-    except Exception as exc:
-        raise BiometricConnectionError(
-            f"No se pudo conectar al dispositivo biometrico {host}:{port}."
-        ) from exc
+            if conn is not None:
+                try:
+                    conn.disconnect()
+                except Exception:
+                    pass
 
-    try:
-        from zk import ZK  # type: ignore
-    except Exception as exc:  # pragma: no cover - depende del entorno
-        raise BiometricConnectionError(
-            "No esta instalada la libreria del reloj. Instala 'pyzkaccess' o 'pyzk' en el backend."
-        ) from exc
-
-    zk = ZK(
-        host,
-        port=port,
-        timeout=timeout,
-        password=password,
-        force_udp=False,
-        ommit_ping=False,
-    )
-    conn = None
-    try:
-        conn = zk.connect()
-        return {
-            "host": host,
-            "port": port,
-            "estado": "ok",
-            "detalle": "Conexion establecida correctamente en modo solo lectura.",
-        }
-    except Exception as exc:
-        raise BiometricConnectionError(
-            f"No se pudo conectar al dispositivo biometrico {host}:{port}."
-        ) from exc
-    finally:
-        if conn is not None:
-            try:
-                conn.disconnect()
-            except Exception:
-                pass
+    raise BiometricConnectionError(
+        f"No se pudo conectar al dispositivo biometrico {host}:{port}."
+    ) from last_exc

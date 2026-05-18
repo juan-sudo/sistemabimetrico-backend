@@ -21,9 +21,16 @@ class PersonalTurnoPagination(PageNumberPagination):
     max_page_size = 100
 
 
+class TurnoPagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = "page_size"
+    max_page_size = 50
+
+
 class TurnoViewSet(BaseModelViewSet):
     queryset = Turno.objects.all()
     serializer_class = TurnoSerializer
+    pagination_class = TurnoPagination
 
     def get_queryset(self):
         queryset = get_turno_queryset()

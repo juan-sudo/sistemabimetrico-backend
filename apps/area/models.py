@@ -29,6 +29,12 @@ class Area(TimestampedModel):
         constraints = [
             models.UniqueConstraint(fields=["sucursal", "codigo"], name="uq_area_sucursal_codigo"),
         ]
+        indexes = [
+            models.Index(fields=["nombre"], name="idx_area_nombre"),
+            models.Index(fields=["sucursal", "nombre"], name="idx_area_sucursal_nombre"),
+            models.Index(fields=["activo", "nombre"], name="idx_area_activo_nombre"),
+            models.Index(fields=["tipo", "sucursal"], name="idx_area_tipo_sucursal"),
+        ]
 
     def __str__(self):
         return self.nombre

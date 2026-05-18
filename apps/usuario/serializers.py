@@ -16,6 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
     rol = serializers.SerializerMethodField(read_only=True)
     modulos_visibles = serializers.SerializerMethodField(read_only=True)
 
+    @staticmethod
+    def _get_module_permissions(obj):
+        cached = getattr(obj, "module_permissions_cached", None)
+        if cached is not None:
+            return cached
+        return list(obj.module_permissions.all().order_by("modulo"))
+
     def get_module_permissions(self, obj):
         return [
             {
@@ -27,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
                 "puede_editar": item.puede_editar,
                 "puede_eliminar": item.puede_eliminar,
             }
-            for item in obj.module_permissions.all().order_by("modulo")
+            for item in self._get_module_permissions(obj)
         ]
 
     def get_nombre_completo(self, obj):
@@ -37,7 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
         return build_usuario_rol(obj)
 
     def get_modulos_visibles(self, obj):
-        return sum(1 for item in obj.module_permissions.all() if item.puede_ver)
+        return sum(1 for item in self._get_module_permissions(obj) if item.puede_ver)
 
     def _sync_module_permissions(self, user, raw_permissions):
         if raw_permissions is None:

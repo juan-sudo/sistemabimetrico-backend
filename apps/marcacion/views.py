@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from apps.core.api import BaseModelViewSet
 from apps.marcacion.models import Marcacion
-from apps.marcacion.serializers import MarcacionSerializer
+from apps.marcacion.serializers import MarcacionConsultarSerializer, MarcacionSerializer
 
 
 class MarcacionPagination(PageNumberPagination):
@@ -53,11 +53,13 @@ class MarcacionViewSet(BaseModelViewSet):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        use_pagination = str(request.query_params.get("paginated", "")).strip().lower() in {"1", "true", "yes"}
+        use_lite_serializer = str(request.query_params.get("lite", "")).strip().lower() in {"1", "true", "yes"}
+        use_pagination = use_lite_serializer or str(request.query_params.get("paginated", "")).strip().lower() in {"1", "true", "yes"}
+        serializer_class = MarcacionConsultarSerializer if use_lite_serializer else self.get_serializer_class()
         if use_pagination:
             page = self.paginate_queryset(queryset)
             if page is not None:
-                serializer = self.get_serializer(page, many=True)
+                serializer = serializer_class(page, many=True, context=self.get_serializer_context())
                 return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = serializer_class(queryset, many=True, context=self.get_serializer_context())
         return Response(serializer.data)

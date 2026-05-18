@@ -9,7 +9,6 @@ def get_reporte_personal_mensual_queryset():
         "personal__empresa",
         "personal__sucursal",
         "personal__area",
-        "personal__tipo_documento",
         "personal__tipo_trabajador",
         "personal__categoria",
         "personal__cargo",

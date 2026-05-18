@@ -11,7 +11,7 @@ class ReportePersonalMensualSerializer(serializers.ModelSerializer):
     empresa_nombre = serializers.CharField(source="personal.empresa.razon_social", read_only=True)
     sucursal_nombre = serializers.CharField(source="personal.sucursal.nombre", read_only=True)
     area_nombre = serializers.CharField(source="personal.area.nombre", read_only=True)
-    tipo_documento_nombre = serializers.CharField(source="personal.tipo_documento.descripcion", read_only=True)
+    tipo_documento_nombre = serializers.CharField(source="personal.tipo_documento", read_only=True)
     tipo_trabajador_nombre = serializers.CharField(source="personal.tipo_trabajador.descripcion", read_only=True)
     categoria_nombre = serializers.CharField(source="personal.categoria.descripcion", read_only=True)
     cargo_nombre = serializers.CharField(source="personal.cargo.descripcion", read_only=True)

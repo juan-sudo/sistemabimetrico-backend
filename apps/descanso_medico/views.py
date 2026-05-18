@@ -1,8 +1,9 @@
 from django.db import models
+from rest_framework.response import Response
 
 from apps.core.api import BaseModelViewSet
 from apps.descanso_medico.models import DescansoMedico
-from apps.descanso_medico.serializers import DescansoMedicoSerializer
+from apps.descanso_medico.serializers import DescansoMedicoLiteSerializer, DescansoMedicoSerializer
 
 
 class DescansoMedicoViewSet(BaseModelViewSet):
@@ -17,7 +18,7 @@ class DescansoMedicoViewSet(BaseModelViewSet):
         fecha = self.request.query_params.get("fecha")
         mes = self.request.query_params.get("mes")
         anio = self.request.query_params.get("anio")
-        q = self.request.query_params.get("q")
+        q = self.request.query_params.get("q") or self.request.query_params.get("search")
 
         if sucursal:
             queryset = queryset.filter(personal__sucursal_id=sucursal)
@@ -39,3 +40,32 @@ class DescansoMedicoViewSet(BaseModelViewSet):
             )
 
         return queryset
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        use_lite_serializer = str(request.query_params.get("lite", "")).strip().lower() in {"1", "true", "yes"}
+        serializer_class = DescansoMedicoLiteSerializer if use_lite_serializer else self.get_serializer_class()
+
+        if use_lite_serializer:
+            queryset = queryset.only(
+                "id",
+                "personal_id",
+                "motivo",
+                "fecha_inicio",
+                "fecha_fin",
+                "dias",
+                "citt",
+                "diagnostico",
+                "tiene_adjunto",
+                "numero_documento",
+                "personal__nombres_completos",
+                "personal__numero_documento",
+                "personal__codigo_empleado",
+                "personal__sucursal_id",
+                "personal__area_id",
+                "personal__sucursal__nombre",
+                "personal__area__nombre",
+            )
+
+        serializer = serializer_class(queryset, many=True, context=self.get_serializer_context())
+        return Response(serializer.data)

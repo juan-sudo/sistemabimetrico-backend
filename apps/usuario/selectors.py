@@ -1,12 +1,28 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Prefetch
+
+from apps.usuario.models import UsuarioModuloPermiso
 
 
 User = get_user_model()
 
 
 def get_usuario_queryset():
-    return User.objects.prefetch_related("module_permissions").all()
+    module_permissions_prefetch = Prefetch(
+        "module_permissions",
+        queryset=UsuarioModuloPermiso.objects.only(
+            "id",
+            "user_id",
+            "modulo",
+            "puede_ver",
+            "puede_crear",
+            "puede_editar",
+            "puede_eliminar",
+        ).order_by("modulo"),
+        to_attr="module_permissions_cached",
+    )
+    return User.objects.prefetch_related(module_permissions_prefetch).all()
 
 
 def filter_usuario_queryset(queryset, *, activo=None, rol=None, q=None):

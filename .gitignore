@@ -12,3 +12,6 @@ staticfiles/
 .mypy_cache/
 .vscode/
 .idea/
+.tmp/
+runserver.out.log
+runserver.err.log

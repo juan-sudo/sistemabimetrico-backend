@@ -1,7 +1,8 @@
 from collections import defaultdict
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 
-from django.db.models import Count, Sum
+from django.core.cache import cache
+from django.db.models import Count, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 from django.utils.timezone import now
@@ -107,22 +108,39 @@ class DashboardResumenView(APIView):
         month_start = today.replace(day=1)
         days = self._parse_days(request.query_params.get("days"))
         range_start = today - timedelta(days=days - 1)
+        cache_key = f"dashboard-resumen:v2:{today.isoformat()}:{days}"
+        cached_payload = cache.get(cache_key)
+        if cached_payload:
+            return Response(cached_payload)
 
-        active_personal = Personal.objects.filter(estado=Personal.Estado.ACTIVO).count()
-        personal_total = Personal.objects.count()
-        justificaciones_qs = Justificacion.objects.all()
-        justificaciones_total = justificaciones_qs.count()
-        pending_justificaciones = justificaciones_qs.filter(
-            estado=Justificacion.Estado.PENDIENTE
-        ).count()
+        personal_stats = Personal.objects.aggregate(
+            total=Count("id"),
+            activos=Count("id", filter=Q(estado=Personal.Estado.ACTIVO)),
+        )
+        active_personal = personal_stats["activos"] or 0
+        personal_total = personal_stats["total"] or 0
+        justificaciones_stats = Justificacion.objects.aggregate(
+            total=Count("id"),
+            pendientes=Count("id", filter=Q(estado=Justificacion.Estado.PENDIENTE)),
+        )
+        justificaciones_total = justificaciones_stats["total"] or 0
+        pending_justificaciones = justificaciones_stats["pendientes"] or 0
 
-        boletas_month_qs = BoletaMensual.objects.filter(anio=today.year, mes=today.month)
-        boletas_month_total = boletas_month_qs.count()
-        boletas_month_neto = float(boletas_month_qs.aggregate(total=Sum("neto_pagar"))["total"] or 0)
+        boletas_month_stats = BoletaMensual.objects.filter(anio=today.year, mes=today.month).aggregate(
+            total=Count("id"),
+            neto=Sum("neto_pagar"),
+        )
+        boletas_month_total = boletas_month_stats["total"] or 0
+        boletas_month_neto = float(boletas_month_stats["neto"] or 0)
+
+        tz = timezone.get_current_timezone()
+        month_start_dt = timezone.make_aware(datetime.combine(month_start, time.min), tz)
+        today_end_dt = timezone.make_aware(datetime.combine(today, time.max), tz)
+        range_start_dt = timezone.make_aware(datetime.combine(range_start, time.min), tz)
 
         marcaciones_month_total = Marcacion.objects.filter(
-            fecha_hora__date__gte=month_start,
-            fecha_hora__date__lte=today,
+            fecha_hora__gte=month_start_dt,
+            fecha_hora__lte=today_end_dt,
         ).count()
 
         dispositivos_activos = Dispositivo.objects.filter(activo=True).count()
@@ -130,8 +148,8 @@ class DashboardResumenView(APIView):
         attended_map = {
             item["day"]: item["count"]
             for item in Marcacion.objects.filter(
-                fecha_hora__date__gte=range_start,
-                fecha_hora__date__lte=today,
+                fecha_hora__gte=range_start_dt,
+                fecha_hora__lte=today_end_dt,
             )
             .annotate(day=TruncDate("fecha_hora"))
             .values("day")
@@ -209,24 +227,24 @@ class DashboardResumenView(APIView):
             .order_by("-created_at")[:6]
         ]
 
-        return Response(
-            {
-                "summary": {
-                    "personal_total": personal_total,
-                    "personal_activo": active_personal,
-                    "marcaciones_mes": marcaciones_month_total,
-                    "justificaciones_total": justificaciones_total,
-                    "justificaciones_pendientes": pending_justificaciones,
-                    "boletas_mes_total": boletas_month_total,
-                    "boletas_mes_neto": boletas_month_neto,
-                    "dispositivos_activos": dispositivos_activos,
-                },
-                "asistencia_diaria": asistencia_diaria,
-                "recent_marcaciones": recent_marcaciones,
-                "recent_justificaciones": recent_justificaciones,
-                "generated_at": timezone.now().isoformat(),
-            }
-        )
+        payload = {
+            "summary": {
+                "personal_total": personal_total,
+                "personal_activo": active_personal,
+                "marcaciones_mes": marcaciones_month_total,
+                "justificaciones_total": justificaciones_total,
+                "justificaciones_pendientes": pending_justificaciones,
+                "boletas_mes_total": boletas_month_total,
+                "boletas_mes_neto": boletas_month_neto,
+                "dispositivos_activos": dispositivos_activos,
+            },
+            "asistencia_diaria": asistencia_diaria,
+            "recent_marcaciones": recent_marcaciones,
+            "recent_justificaciones": recent_justificaciones,
+            "generated_at": timezone.now().isoformat(),
+        }
+        cache.set(cache_key, payload, timeout=300)
+        return Response(payload)
 
     @staticmethod
     def _parse_days(raw_value):

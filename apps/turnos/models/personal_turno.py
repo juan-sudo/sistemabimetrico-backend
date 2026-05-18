@@ -15,6 +15,10 @@ class PersonalTurno(TimestampedModel):
     class Meta:
         db_table = "personal_turnos"
         ordering = ["-fecha_inicio"]
+        indexes = [
+            models.Index(fields=["personal", "fecha_inicio", "fecha_fin"], name="idx_personal_turno_rango"),
+            models.Index(fields=["turno"], name="idx_personal_turno_turno"),
+        ]
 
 
 __all__ = ["PersonalTurno"]

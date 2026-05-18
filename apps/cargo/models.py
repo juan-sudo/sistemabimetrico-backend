@@ -11,6 +11,10 @@ class Cargo(TimestampedModel):
     class Meta:
         db_table = "cargos"
         ordering = ["descripcion"]
+        indexes = [
+            models.Index(fields=["descripcion"], name="idx_cargo_descripcion"),
+            models.Index(fields=["activo", "descripcion"], name="idx_cargo_activo_desc"),
+        ]
 
     def __str__(self):
         return self.descripcion

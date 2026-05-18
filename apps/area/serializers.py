@@ -3,6 +3,12 @@ from rest_framework import serializers
 from apps.area.models import Area
 
 
+class AreaLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Area
+        fields = ["id", "nombre", "tipo", "parent"]
+
+
 class AreaSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         tipo = attrs.get("tipo", getattr(self.instance, "tipo", None))

@@ -17,6 +17,10 @@ class Turno(TimestampedModel):
     class Meta:
         db_table = "turnos"
         ordering = ["nombre"]
+        indexes = [
+            models.Index(fields=["nombre"], name="idx_turno_nombre"),
+            models.Index(fields=["activo", "tipo", "nombre"], name="idx_turno_activo_tipo_nom"),
+        ]
 
     def __str__(self):
         return f"{self.codigo} - {self.nombre}"

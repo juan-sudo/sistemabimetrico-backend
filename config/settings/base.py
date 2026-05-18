@@ -27,17 +27,11 @@ def get_list(env_name: str, default: list[str]) -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
-SECRET_KEY = os.getenv(
-    "DJANGO_SECRET_KEY",
-    "change-this-secret-key-in-env",
-)
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-this-secret-key-in-env")
 
 DEBUG = get_bool("DJANGO_DEBUG", True)
 
-ALLOWED_HOSTS = get_list(
-    "DJANGO_ALLOWED_HOSTS",
-    ["127.0.0.1", "localhost"],
-)
+ALLOWED_HOSTS = get_list("DJANGO_ALLOWED_HOSTS", ["127.0.0.1", "localhost"])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -52,6 +46,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.accounts",
     "apps.area",
+    "apps.asistencia_diaria",
     "apps.boleta_concepto",
     "apps.boleta_mensual",
     "apps.cargo",
@@ -59,6 +54,7 @@ INSTALLED_APPS = [
     "apps.conexion_equipo_biometrico",
     "apps.descanso_medico",
     "apps.descarga_marcacion",
+    "apps.dispositivo",
     "apps.empresa",
     "apps.justificacion",
     "apps.marcacion",
@@ -73,11 +69,11 @@ INSTALLED_APPS = [
     "apps.tipo_sindicato",
     "apps.tipo_trabajador",
     "apps.turnos",
-    "apps.asistencia_diaria",
     "apps.usuario",
 ]
 
 MIDDLEWARE = [
+    "django.middleware.gzip.GZipMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -108,26 +104,42 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
-DATABASES = {
+db_engine = os.getenv("DJANGO_DB_ENGINE", "postgres").strip().lower()
+if db_engine == "sqlite":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.getenv("DJANGO_DB_NAME", str(BASE_DIR / "db.sqlite3")),
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("POSTGRES_DB", "db_sisbiometrico"),
+            "USER": os.getenv("POSTGRES_USER", "postgres"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "1234"),
+            "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+            "PORT": os.getenv("POSTGRES_PORT", "5432"),
+            "CONN_MAX_AGE": 600,
+            "OPTIONS": {"connect_timeout": 10},
+        }
+    }
+
+CACHES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.getenv("DJANGO_DB_NAME", str(BASE_DIR / "db.sqlite3")),
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "sisbiometrico-cache",
+        "TIMEOUT": 300,
+        "OPTIONS": {"MAX_ENTRIES": 1000},
     }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 LANGUAGE_CODE = "es-pe"
@@ -144,9 +156,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
@@ -190,18 +200,10 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "standard": {
-            "format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-        },
+        "standard": {"format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s"},
     },
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "standard",
-        },
+        "console": {"class": "logging.StreamHandler", "formatter": "standard"},
     },
-    "root": {
-        "handlers": ["console"],
-        "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
-    },
+    "root": {"handlers": ["console"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO")},
 }

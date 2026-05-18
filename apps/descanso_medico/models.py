@@ -21,6 +21,11 @@ class DescansoMedico(TimestampedModel):
     class Meta:
         db_table = "descansos_medicos"
         ordering = ["-fecha_inicio"]
+        indexes = [
+            models.Index(fields=["fecha_inicio"], name="idx_descanso_fecha_ini"),
+            models.Index(fields=["fecha_fin"], name="idx_descanso_fecha_fin"),
+            models.Index(fields=["personal", "fecha_inicio", "fecha_fin"], name="idx_descanso_personal_rango"),
+        ]
 
 
 __all__ = ["DescansoMedico"]

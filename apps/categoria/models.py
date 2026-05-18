@@ -13,6 +13,10 @@ class Categoria(TimestampedModel):
     class Meta:
         db_table = "categorias"
         ordering = ["descripcion"]
+        indexes = [
+            models.Index(fields=["descripcion"], name="idx_categoria_desc"),
+            models.Index(fields=["activo", "descripcion"], name="idx_categoria_activo_desc"),
+        ]
 
     def __str__(self):
         return self.descripcion

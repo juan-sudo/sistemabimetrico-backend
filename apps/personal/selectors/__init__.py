@@ -8,8 +8,6 @@ def get_personal_queryset():
         "empresa",
         "sucursal",
         "area",
-        "ubicacion",
-        "tipo_documento",
         "tipo_trabajador",
         "categoria",
         "tipo_sindicato",

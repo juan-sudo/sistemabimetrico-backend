@@ -5637,7 +5637,7 @@ components:
         cargo_nombre:
           type: string
           readOnly: true
-        ubicacion_nombre:
+        direccion_nombre:
           type: string
           readOnly: true
         created_at:
@@ -5676,11 +5676,12 @@ components:
           type: integer
         area:
           type: integer
-        ubicacion:
-          type: integer
-          nullable: true
+        direccion:
+          type: string
+          maxLength: 255
         tipo_documento:
-          type: integer
+          type: string
+          maxLength: 20
         tipo_trabajador:
           type: integer
         categoria:
@@ -6406,7 +6407,7 @@ components:
         cargo_nombre:
           type: string
           readOnly: true
-        ubicacion_nombre:
+        direccion_nombre:
           type: string
           readOnly: true
         created_at:
@@ -6445,11 +6446,12 @@ components:
           type: integer
         area:
           type: integer
-        ubicacion:
-          type: integer
-          nullable: true
+        direccion:
+          type: string
+          maxLength: 255
         tipo_documento:
-          type: integer
+          type: string
+          maxLength: 20
         tipo_trabajador:
           type: integer
         categoria:
@@ -6480,7 +6482,7 @@ components:
       - tipo_sindicato_nombre
       - tipo_trabajador
       - tipo_trabajador_nombre
-      - ubicacion_nombre
+      - direccion_nombre
       - updated_at
     PersonalTurno:
       type: object

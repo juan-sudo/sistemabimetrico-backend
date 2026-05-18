@@ -23,6 +23,10 @@ class Dispositivo(TimestampedModel):
     class Meta:
         db_table = "dispositivos"
         ordering = ["nombre"]
+        indexes = [
+            models.Index(fields=["nombre"], name="idx_dispositivo_nombre"),
+            models.Index(fields=["activo", "uso", "nombre"], name="idx_disp_activo_uso_nom"),
+        ]
 
     def __str__(self):
         return self.nombre

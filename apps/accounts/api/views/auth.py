@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, get_user_model
+from django.db.models import Q
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -27,20 +28,31 @@ class LoginView(APIView):
         summary="Iniciar sesion",
     )
     def post(self, request):
-        username = (request.data.get("username") or "").strip()
+        username = (request.data.get("username") or request.data.get("email") or "").strip()
         password = request.data.get("password") or ""
 
         if not username or not password:
             return Response(
-                {"detail": "username y password son obligatorios."},
+                {"detail": "username/email y password son obligatorios."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        user_obj = User.objects.filter(username__iexact=username).first() or User.objects.filter(
-            email__iexact=username
-        ).first()
-        auth_username = user_obj.username if user_obj else username
-        user = authenticate(request, username=auth_username, password=password)
+        candidate_usernames = list(
+            dict.fromkeys(
+                [username]
+                + list(
+                    User.objects.filter(
+                        Q(username__iexact=username) | Q(email__iexact=username)
+                    ).values_list("username", flat=True)
+                )
+            )
+        )
+
+        user = None
+        for candidate in candidate_usernames:
+            user = authenticate(request, username=candidate, password=password)
+            if user:
+                break
 
         if not user:
             return Response(
